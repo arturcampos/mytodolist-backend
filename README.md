@@ -19,6 +19,7 @@ Project
 ├── mytodolist-backend
 |   ├── main.go: GO main file
 |   ├── Dockerfile
+|   ├── docker-compose.yml
 |     ├── database
 |       ├── db.go: GO file responsible to start up data base connection and get database and collections from mongo
 |     ├── service
