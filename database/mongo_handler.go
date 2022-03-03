@@ -1,20 +1,45 @@
 package database
 
-import (	
-	"time"
-	"fmt"
+import (
 	"context"
+	"fmt"
+	"os"
+	"time"
+
+	"github.com/spf13/viper"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
 )
-const uri = "mongodb://root:MongoDB2021!@localhost:27017/?maxPoolSize=20&w=majority"
 
 var Collection *mongo.Collection
 var Ctx = context.TODO()
 
-func init() {
+func viperEnvVariable(key string) string {
+	configFileName := os.Getenv("CONFIG_FILE")
+	if len(configFileName) == 0 {
+		configFileName = "config.yaml"
+	}
 
+	fmt.Println(configFileName)
+
+	viper.SetConfigFile(configFileName)
+	err := viper.ReadInConfig()
+
+	if err != nil {
+		panic(err)
+	}
+	value, ok := viper.Get(key).(string)
+
+	if !ok {
+		panic("Invalid type assertion")
+	}
+
+	return value
+}
+
+func init() {
+	uri := viperEnvVariable("MONGO_URL")
 	clientOptions := options.Client().ApplyURI(uri)
 	client, _ := mongo.NewClient(clientOptions)
 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
