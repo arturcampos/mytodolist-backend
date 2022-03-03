@@ -1,6 +1,6 @@
 package database
 
-import (
+import (	
 	"time"
 	"fmt"
 	"context"
@@ -14,6 +14,7 @@ var Collection *mongo.Collection
 var Ctx = context.TODO()
 
 func init() {
+
 	clientOptions := options.Client().ApplyURI(uri)
 	client, _ := mongo.NewClient(clientOptions)
 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
