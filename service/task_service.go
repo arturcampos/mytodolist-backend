@@ -6,6 +6,7 @@ import (
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo"
 
 	"todolist/database"
 )
@@ -35,35 +36,41 @@ func CreateTask(task *Task) error {
 }
 
 func GetTask() ([]*Task, error) {
-	var tasks []*Task
+
 	cursor, err := database.Collection.Find(database.Ctx, bson.D{})
 	if err != nil {
 		return nil, err
 	}
 
-	//converter cursor result to Task
-	for cursor.Next(database.Ctx) {
-		var t Task
-		err := cursor.Decode(&t)
-		if err != nil {
-			panic(err)
+	return cursorConverter(cursor), nil
+
+}
+
+func cursorConverter(cursor *mongo.Cursor) []*Task{
+	var tasks []*Task
+		//converter cursor result to Task
+		for cursor.Next(database.Ctx) {
+			var t Task
+			err := cursor.Decode(&t)
+			if err != nil {
+				panic(err)
+			}
+	
+			tasks = append(tasks, &t)
 		}
-
-		tasks = append(tasks, &t)
-	}
-
-	if len(tasks) == 0 {
-		tasks = append(tasks,
-			&Task{
-				ID:        primitive.NewObjectID(),
-				CreatedAt: time.Now(),
-				UpdatedAt: time.Now(),
-				Text:      "Unamed Task",
-				Completed: false,
-			})
-	}
-
-	return tasks, nil
+	
+		if len(tasks) == 0 {
+			tasks = append(tasks,
+				&Task{
+					ID:        primitive.NewObjectID(),
+					CreatedAt: time.Now(),
+					UpdatedAt: time.Now(),
+					Text:      "Unamed Task",
+					Completed: false,
+				})
+		}
+	
+		return tasks
 }
 
 func GetTaskById(id string) *Task {

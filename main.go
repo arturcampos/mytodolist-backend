@@ -22,7 +22,7 @@ func main() {
 	router.PUT("/tasks/:id/complete", putTask)
 	router.PUT("/tasks/:id/uncomplete", putTask)
 	router.DELETE("/tasks/:id", deleteTask)
-	router.Run("localhost:8080")
+	router.Run(":8080")
 }
 
 func getTasks(ginCtx *gin.Context) {

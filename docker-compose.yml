@@ -1,0 +1,25 @@
+version: "3.3"
+services:
+
+  db:
+    image: mongo
+    container_name: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: MongoDB2021!
+    ports:
+      - "27017:27017"
+    volumes:
+      - "/tmp/MongoDB:/data/db"
+    tty: true
+    
+  mytodolist-backend:
+    build: 
+      context: .
+    image: arturcampos/mytodolist-backend
+    container_name: mytodolist-backend
+    ports:
+      - "8080:8080"
+    tty: true
+    depends_on: 
+      - db
