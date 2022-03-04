@@ -1,16 +1,15 @@
 # My ToDoList api ![Go](https://img.shields.io/badge/Go-darkblue?style=plastic&logo=go) ![Project last updated](https://img.shields.io/github/last-commit/arturcampos/mytodolist-backend/main?label=Last%20updated&style=plastic)  
 
+This project is built using the following languages, frameworks and tools:
+- ![Go](https://img.shields.io/badge/Go-v1.17-darkgreen?style=plastic&logo=go) with [gin-gonic](https://github.com/gin-gonic/gin) framework that implements functionalities from net/http (native from GoLang).
+- ![Docker](https://img.shields.io/badge/Docker-gray?style=plastic&logo=docker) for build and configure our application.
+- ![Docker-Compose](https://img.shields.io/badge/Docker%20Compose-gray?style=plastic&logo=docker-compose) for running the envronment starting a database and the application making it avaliable to be used.
+- ![MongoDB](https://img.shields.io/badge/MongoDB-latest-darkgreen?style=plastic&logo=mongodb) as a NoSQL database (tag version `latest` from DockerHub).
 
 ## Functionalities to be added 
 - [ ] Unit tests
 - [ ] Integration Tests
 - [ ] Postman Documentation
-
-
-### To run this project you will need:
-- ![Go](https://img.shields.io/badge/Go@v1.17-darkgreen?style=plastic&logo=go)
-- ![Docker](https://img.shields.io/badge/Docker-darkgreen?style=plastic&logo=docker)
-- ![Docker-Compose](https://img.shields.io/badge/Docker%20Compose-darkblue?style=plastic&logo=docker-compose)
 
 ### Project structure
 
